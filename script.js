@@ -64,6 +64,10 @@ function randomMove(){
 
 }
 
+let score = {
+
+}
+
 let result = ""
 function rock(playerMove){
     playGame("rock");
