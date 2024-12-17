@@ -1,4 +1,6 @@
 
+const score = JSON.parse(localStorage.getItem("score"))
+
 function playGame(playerMove) {
     const computerMove = randomMove()
     if(playerMove === "rock"){
@@ -41,8 +43,23 @@ function playGame(playerMove) {
         }
     }
 
-    alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}.`);
+ // Updating scores
+    if(result === "You win"){
+        score.wins += 1;
+    }
+    else if(result === "You Lose"){
+        score.losses += 1;
+    }
+    else if(result === "Tie"){
+        score.ties += 1
+    }
+
+    alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}.
+Wins : ${score.wins}, Losses : ${score.losses}, Ties : ${score.ties}
+        `);
 }
+
+
 
 function randomMove(){
     const randomNumber = Math.random();
@@ -64,21 +81,30 @@ function randomMove(){
 
 }
 
-let score = {
-
-}
 
 let result = ""
-function rock(playerMove){
+function rock(){
     playGame("rock");
 }
 
-function paper(playerMove){
+function paper(){
     playGame("paper");
 }
 
 function scissors(){
     playGame("scissors");
 }
+
+// Saving score so that it does not get reset when we refresh the page
+
+localStorage("score", JSON.stringify(score))
+
+// Reset Score
+document.querySelector("#reset-btn").addEventListener("click", () => {
+    score.wins = 0;
+    score.losses = 0;
+    score.ties = 0
+});
+ 
 
 
