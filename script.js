@@ -1,6 +1,8 @@
 
 const score = JSON.parse(localStorage.getItem("score"))
 
+
+
 function playGame(playerMove) {
     const computerMove = randomMove()
     if(playerMove === "rock"){
@@ -54,6 +56,10 @@ function playGame(playerMove) {
         score.ties += 1
     }
 
+    // Saving score so that it does not get reset when we refresh the page
+
+    localStorage.setItem("score", JSON.stringify(score))
+
     alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}.
 Wins : ${score.wins}, Losses : ${score.losses}, Ties : ${score.ties}
         `);
@@ -95,9 +101,7 @@ function scissors(){
     playGame("scissors");
 }
 
-// Saving score so that it does not get reset when we refresh the page
 
-localStorage("score", JSON.stringify(score))
 
 // Reset Score
 document.querySelector("#reset-btn").addEventListener("click", () => {
